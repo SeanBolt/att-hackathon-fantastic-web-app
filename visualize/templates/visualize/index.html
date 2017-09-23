@@ -3,7 +3,10 @@
 {% block content %}
 
 
-<canvas id="myChart"></canvas>
+
+<div class="col-md-8 col-md-offset-2">
+	<canvas id="myChart"></canvas>
+</div>
 
 <script>
 	var ctx = document.getElementById('myChart').getContext('2d');
@@ -11,9 +14,13 @@
 	  type: 'line',
 	  data: {
 	    datasets: [{
-	      data: []
-	    },{
-	      data: []
+	      label: 'West Side',
+	      borderColor: 'RGB(7, 31, 61)',
+	      backgroundColor: 'RGBA(7, 31, 61, 0.3)',
+	    }, {
+	      label: 'East Side',
+	      borderColor: 'RGB(201, 151, 33)',
+	      backgroundColor: 'RGBA(201, 151, 33, 0.3)'
 	    }]
 	  },
 	  options: {
@@ -21,9 +28,21 @@
 	      xAxes: [{
 	        type: 'realtime'
 	      }]
-	    }
+	    },
+	    plugins: {
+			streaming: {
+				onRefresh: function(chart) {
+					chart.data.datasets.forEach(function(dataset) {
+						dataset.data.push({
+							x: Date.now(),
+							y: Math.random()
+						});
+					});
+				},
+				delay: 3000
+			}
+		}
 	  }
 	});
 </script>
-
 {% endblock %}
