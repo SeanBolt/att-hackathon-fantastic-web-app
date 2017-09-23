@@ -3,9 +3,19 @@
 {% block content %}
 
 
-
-<div class="col-md-8 col-md-offset-2">
+<div class="col-md-2">
+	<div class="row"><h1>West Side</h1></div>
+	<div class="row"><h1>100dB</h1></div>
+	<div class="row"><h1>Winning!</h1></div>
+</div>
+<div class="col-md-8">
 	<canvas id="myChart"></canvas>
+</div>
+<div class="col-md-2" style="vertical-align: middle;">
+	<div class="row"><h1>East Side</h1></div>
+	<div class="row"><h1>90dB</h1></div>
+	<div class="row"><h1>Losing!</h1></div>
+	
 </div>
 
 <script>
@@ -39,7 +49,8 @@
 						});
 					});
 				},
-				delay: 3000
+				delay: 3000,
+				refresh: 1000
 			}
 		}
 	  }

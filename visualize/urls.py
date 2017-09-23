@@ -4,4 +4,5 @@ from visualize import views
 
 urlpatterns = [
     url(r'^$', views.indexPageView.as_view()),
+    url(r'^upload$', views.send_data),
 ]
