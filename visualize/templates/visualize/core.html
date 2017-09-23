@@ -10,10 +10,37 @@
 		<!-- Bootstrap JS -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+		<!-- Chart Libraries -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/af.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js"></script>
+		<script type="text/javascript" src="chartjs-plugin-streaming.js"></script>
+
+		<script>
+			var ctx = document.getElementById('myChart').getContext('2d');
+			var chart = new Chart(ctx, {
+			  type: 'line',
+			  data: {
+			    datasets: [{
+			      data: []
+			    },{
+			      data: []
+			    }]
+			  },
+			  options: {
+			    scales: {
+			      xAxes: [{
+			        type: 'realtime'
+			      }]
+			    }
+			  }
+			});
+		</script>
+
 		<!-- Title -->
 		<title>Crowd Cheer</title>
 	</head>
 	<body>
+		{% include 'visualize/navbar.html' %}
 		{% block content %}{% endblock %}	
 	</body>
 </html>
