@@ -1,5 +1,8 @@
-from django.http import HttpResponse
+from django.shortcuts import render
+from django.views.generic import TemplateView
+import requests
 
 
-def index(request):
-    return HttpResponse("Sound Visualizer")
+class indexPageView(TemplateView):
+	def get(self, request, **kwargs):
+		return render(request, 'visualize/index.html', context={'name':'Sean'})
