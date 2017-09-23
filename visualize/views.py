@@ -30,10 +30,24 @@ def send_data(request):
 @csrf_exempt
 def fetch_data(request):
 	if request.method == 'GET':
-		score_west = Score.objects.filter(location=1).latest('pk')
-		score_east = Score.objects.filter(location=2).latest('pk')
-		json1 = {"west":{"pk":score_west.pk, "score": score_west.score, "location": score_west.location},"east":{"pk":score_east.pk, "score": score_east.score, "location": score_east.location}}
-		print("hello")
+		items_averaged = 10
+		score_west = Score.objects.filter(location=1).order_by('-pk')[:items_averaged]
+		score_east = Score.objects.filter(location=2).order_by('-pk')[:items_averaged]
+
+		west_array = []
+		east_array = []
+
+		for number in range(0,items_averaged): 
+		   	west_array.append(score_west[number].score)
+		   	east_array.append(score_east[number].score)
+
+		score_w = sum(west_array)/len(west_array)
+		score_e = sum(east_array)/len(east_array)
+
+		json1 = {"west":{"score": score_w},"east":{"score": score_e}}
+		print(west_array)
+		print(score_w)
+
 		return HttpResponse(json.dumps(json1))
 
 
