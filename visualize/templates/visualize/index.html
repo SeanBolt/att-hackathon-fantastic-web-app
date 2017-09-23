@@ -3,22 +3,20 @@
 {% block content %}
 
 
-<div class="col-md-2">
+<div class="col-md-2" style="text-align: center;">
 	<div class="row"><h1>West Side</h1></div>
-	<div class="row"><h1>100dB</h1></div>
-	<div class="row"><h1>Winning!</h1></div>
+	<div class="row" id="westdb"><h1>100</h1></div>
+	<div class="row" id="weststatus"><h1>Winning!</h1></div>
 </div>
 <div class="col-md-8">
 	<canvas id="myChart"></canvas>
 </div>
-<div class="col-md-2" style="vertical-align: middle;">
+<div class="col-md-2" style="text-align: center;">
 	<div class="row"><h1>East Side</h1></div>
-	<div class="row"><h1>90dB</h1></div>
-	<div class="row"><h1>Losing!</h1></div>
+	<div class="row" id="eastdb"><h1>90</h1></div>
+	<div class="row" id="eaststatus"><h1>Losing!</h1></div>
 	
 </div>
-
-<div><button>Fetch</button></div>
 
 <script>
 	var ctx = document.getElementById('myChart').getContext('2d');
@@ -45,7 +43,7 @@
 			streaming: {
 				onRefresh: function(chart) {
 					abc = 1
-					$.getJSON('http://127.0.0.1:8000/visualize/fetch', {}, function(data, jqXHR){
+					$.getJSON('http://172.20.10.2:8000/visualize/fetch', {}, function(data, jqXHR){
 						chart.data.datasets[0].data.push({
 							x: Date.now(),
 							y: data.west.score
@@ -54,11 +52,20 @@
 							x: Date.now(),
 							y: data.east.score
 						});
-
+						$('#westdb').html('<h1>' + Math.floor(data.west.score) + ' </h1>');
+						$('#east').html('<h1>' + Math.floor(data.east.score) + ' </h1>')
+						if(data.east.score > data.west.score) {
+							$('#weststatus').html('<h1> Losing! </h1>');
+							$('#eaststatus').html('<h1> Winning! </h1>');
+						} else {
+							$('#weststatus').html('<h1> Winning! </h1>');
+							$('#eaststatus').html('<h1> Losing! </h1>');
+						};
 					});
+
 				},
 				delay: 2000,
-				refresh: 1000,
+				refresh: 500,
 			}
 		}
 	  }

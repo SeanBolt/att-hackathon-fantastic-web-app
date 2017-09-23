@@ -17,20 +17,23 @@ class indexPageView(TemplateView):
 @csrf_exempt
 def send_data(request):
 	if request.method == 'POST':
+
 		body_unicode = request.body.decode('utf-8')
+		print(body_unicode)
 		parsed_json = json.loads(body_unicode)
 		score = Score()
 		score.score = parsed_json.get("score")
 		score.location = parsed_json.get("location")
 		score.save()
 		string = "The score posted is" + " " + parsed_json.get("score")
+		print(string)
 		return HttpResponse(string)
 
 
 @csrf_exempt
 def fetch_data(request):
 	if request.method == 'GET':
-		items_averaged = 10
+		items_averaged = 30
 		score_west = Score.objects.filter(location=1).order_by('-pk')[:items_averaged]
 		score_east = Score.objects.filter(location=2).order_by('-pk')[:items_averaged]
 
