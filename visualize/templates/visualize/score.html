@@ -1,0 +1,24 @@
+{% extends 'visualize/core.html' %}
+{% block content %}
+
+
+<table style="width:100%">
+  <tr>
+    <th>Score ID</th>
+    <th>Time</th>
+    <th>Location</th> 
+    <th>Value</th>
+  </tr>
+{% for score in scores %}
+
+  <tr>
+    <td>{{ score.pk }}</td>
+    <td>{{ score.time }}</td>
+    <td>{{ score.location }}</td> 
+    <td>{{ score.score}}</td>
+  </tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}

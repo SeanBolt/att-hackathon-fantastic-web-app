@@ -18,6 +18,8 @@
 	
 </div>
 
+<div><button>Fetch</button></div>
+
 <script>
 	var ctx = document.getElementById('myChart').getContext('2d');
 	var chart = new Chart(ctx, {
@@ -42,18 +44,26 @@
 	    plugins: {
 			streaming: {
 				onRefresh: function(chart) {
-					chart.data.datasets.forEach(function(dataset) {
-						dataset.data.push({
+					abc = 1
+					$.getJSON('http://127.0.0.1:8000/visualize/fetch', {}, function(data, jqXHR){
+						chart.data.datasets[0].data.push({
 							x: Date.now(),
-							y: Math.random()
+							y: data.west.score
 						});
+						chart.data.datasets[1].data.push({
+							x: Date.now(),
+							y: data.east.score
+						});
+
 					});
 				},
 				delay: 3000,
-				refresh: 1000
+				refresh: 1000,
 			}
 		}
 	  }
 	});
+
+	
 </script>
 {% endblock %}
