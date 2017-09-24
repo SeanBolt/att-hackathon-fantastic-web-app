@@ -35,7 +35,7 @@ def send_data(request):
 		
 		score_w, score_e = average_scores()
 
-		resp = {"current_fresh": str(round(score_w)), "peak_fresh": str(round(peak_west)), "current_east": str(round(score_e)), "peak_east": str(round(peak_east)) }
+		resp = {"current_fresh": str(round(score_w)), "peak_fresh": str(round(peak_west)), "current_senior": str(round(score_e)), "peak_senior": str(round(peak_east)) }
 
 		return HttpResponse(json.dumps(resp))
 
