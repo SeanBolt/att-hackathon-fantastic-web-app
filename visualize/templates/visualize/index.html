@@ -52,15 +52,19 @@
 							x: Date.now(),
 							y: data.east.score
 						});
-						$('#westdb').html('<h1>' + Math.floor(data.west.score) + ' </h1>');
-						$('#east').html('<h1>' + Math.floor(data.east.score) + ' </h1>')
-						if(data.east.score > data.west.score) {
+						$('#westdb').html('<h1>' + Math.round(data.west.peak) + ' </h1>');
+						$('#eastdb').html('<h1>' + Math.round(data.east.peak) + ' </h1>')
+						
+						if(data.east.peak > data.west.peak) {
 							$('#weststatus').html('<h1> Losing! </h1>');
 							$('#eaststatus').html('<h1> Winning! </h1>');
-						} else {
+						} else if (data.east.peak < data.west.peak) {
 							$('#weststatus').html('<h1> Winning! </h1>');
 							$('#eaststatus').html('<h1> Losing! </h1>');
-						};
+						} else {
+							$('#weststatus').html('<h1> Tie! </h1>');
+							$('#eaststatus').html('<h1> Tie! </h1>');
+						}
 					});
 
 				},
