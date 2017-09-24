@@ -62,6 +62,7 @@ def fetch_data(request):
 
 		return HttpResponse(json.dumps(json1))
 
+
 def average_scores():
 	items_averaged = 30
 	
